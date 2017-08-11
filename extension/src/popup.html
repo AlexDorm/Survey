@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Surveys popup</title>
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js"></script>
+  </head>
+
+  <body>
+    <p id='question'> Unloaded question ! Is the server opened ? </p>
+    <form action="http://localhost:8080/web/API/Answer" method="post" id="choices" style="visibility:hidden;">
+        <div id="answers">
+            <label id="tDisagree">
+                <input type="radio" name="answer" class="select" id="button5" value="Totally disagree"> <span>Totally disagree</span>
+            </label>
+            <label id="pDisagree">
+                <input type="radio" name="answer" class="select" id="button4" value="Partially disagree"> <span>Partially disagree</span>
+            </label>
+            <label id="neutral">
+                <input type="radio" name="answer" class="select" id="button3" value="Neutral"> <span>Neutral</span>
+            </label>
+            <label id="pAgree">
+                <input type="radio" name="answer" class="select" id="button2" value="Partially agree "> <span>Partially agree</span>
+            </label>
+            <label id="tAgree">
+                <input type="radio" name="answer" class="select" id="button1" value="Totally agree"> <span>Totally agree</span>
+            </label>
+            <input type="button" id="next" disabled value="Next question">
+        </div>
+    </form> 
+  </body>
+</html>

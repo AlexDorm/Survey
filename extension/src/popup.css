@@ -1,0 +1,130 @@
+body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+        min-width: 630px;
+}
+
+p{
+    text-align: center;
+    font-weight: bold;
+    margin: 10px;
+}
+
+#answers label {
+    float:left;
+    margin:2px;
+    border-radius:15px;
+    cursor: pointer;
+}
+
+#answers label span {
+    font-size: 18px;
+    padding:2px 5px;
+    display:block;
+    text-align: center;
+    border-radius:15px;
+}
+
+#answers label input {
+    position:absolute;
+    top:-20px;
+}
+
+#answers label:hover input:disabled + span {
+    cursor: not-allowed;
+}
+
+#tDisagree {
+    background-color: white; 
+    color: black; 
+    border: 2px solid red;
+}
+
+#tDisagree:hover {
+    background-color: red;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+#tDisagree input:checked + span {
+    background-color: red;
+    color: white;
+}
+
+#pDisagree {
+    background-color: white; 
+    color: black; 
+    border: 2px solid orange;
+}
+#pDisagree:hover {
+    background-color: orange;
+    color: white;
+    transition-duration: 0.5s;
+}
+#pDisagree input:checked + span {
+    background-color: orange;
+    color: white;
+}
+
+#neutral {
+    background-color: white; 
+    color: black; 
+    border: 2px solid grey;
+}
+#neutral:hover {
+    background-color: grey;
+    color: white;
+    transition-duration: 0.5s;
+}
+#neutral input:checked + span {
+    background-color: grey;
+    color: white;
+}
+
+#pAgree {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #53ff1a;
+}
+#pAgree:hover {
+    background-color: #53ff1a;
+    color: white;
+    transition-duration: 0.5s;
+}
+#pAgree input:checked + span {
+    background-color: #53ff1a;
+    color: white;
+}
+
+#tAgree {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #009900;
+}
+#tAgree:hover {
+    background-color: #009900;
+    color: white;
+    transition-duration: 0.5s;
+}
+#tAgree input:checked + span {
+    background-color: #009900;
+    color: white;
+}
+
+#next{
+    float: left;
+    background-color: white;
+    color: black;
+    border: 2px solid blue;
+    margin: 1% 40%;
+}
+
+#next:disabled:hover{
+    cursor: not-allowed;
+}
+
+#next:hover {
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
