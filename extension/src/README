@@ -5,3 +5,6 @@ you can provide an extension unpacked for testing :
 
 to pack it, make it a .crx file by clicking on the "Pack extension" button. It will also provide .pem file which contains the private key. /!\ keep it (you need it if you do any upgrade) /!\
 see: https://developer.chrome.com/extensions/packaging for more information
+
+----
+concerning the extension, you can set page actions and browser actions. Use page action only when few pages are concerned (RSS) otherwise browser action (adblock)

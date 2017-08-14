@@ -43,9 +43,9 @@ var date = new Date(); //return the date at the moment it is called
 function setDate(h = 12) {
 	if (date.getHours() > h) {
 		date = new Date(date.getTime() + 24*60*60*1000); //set the date to the next day
-		date.setHours(h); //between 12 & 13
+		date.setHours(h); //between h & h+1
 	} else {
-		date.setHours(h); //set the date to today at 12:(current minutes)
+		date.setHours(h); //set the date to today at h:(current minutes)
 	}
 	return date;
 }

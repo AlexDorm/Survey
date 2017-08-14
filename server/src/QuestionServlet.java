@@ -5,8 +5,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-
 import javax.json.*;
+
+/**
+ * The page that is used to manage the questions from the DB
+ * React differently for every request type
+ * GET: get the list of questions
+ * POST: add any question to DB
+ * PUT: modify the text of an existing question
+ * DELETE: delete a question
+ */
 
 public class QuestionServlet extends HttpServlet{
 
@@ -50,9 +58,7 @@ public class QuestionServlet extends HttpServlet{
             out.print("<p> " + e.toString() + "</p>");
         }
     }
-    /**
-     * We use the post method for DELETE,PUT,POST because the form can't send these types of request
-     */
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -61,33 +67,69 @@ public class QuestionServlet extends HttpServlet{
 
         try {
             Connection conn = Connect.connect();
-            PreparedStatement pstmt;
-            if (request.getParameter("question") != null) {
-                String sql = "INSERT INTO QUESTION (QuestionID,Question) VALUES(?,?);";
-                pstmt = conn.prepareStatement(sql);
 
-                pstmt.setString(1, null); //null because of AUTO-INCREMENT in DB
-                pstmt.setString(2, request.getParameter("question"));
-            }
-            else if(request.getParameter("oldQuestion") != null){
-                String sql = "UPDATE QUESTION SET Question=? WHERE QUESTION.Question=?";
-                pstmt = conn.prepareStatement(sql);
+            String sql = "INSERT INTO QUESTION (QuestionID,Question) VALUES(?,?);";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-                pstmt.setString(1,request.getParameter("newQuestion"));
-                pstmt.setString(2,request.getParameter("oldQuestion"));
-            }
-            else {
-                String sql = "DELETE FROM QUESTION WHERE QUESTION.Question=?;";
-                pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, null); //null because of AUTO-INCREMENT in DB
+            pstmt.setString(2, request.getParameter("question"));
 
-                pstmt.setString(1,request.getParameter("removeQuestion"));
-            }
-
+            out.print("The question has been added to the DB");
             pstmt.executeUpdate();
             pstmt.close();
+            conn.close();
 
         } catch (Exception e){
             out.print("<p> " + e.toString() + "</p>");
+        }
+    }
+
+     protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        try {
+            Connection conn = Connect.connect();
+
+            String sql = "UPDATE QUESTION SET Question=? WHERE QUESTION.Question=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1,request.getParameter("newQuestion"));
+            pstmt.setString(2,request.getParameter("oldQuestion"));
+
+            out.print("The question " + request.getParameter("oldQuestion") +
+                    " has been modified to " + request.getParameter("newQuestion"));
+            pstmt.executeUpdate();
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            out.print(e.toString());
+        }
+    }
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        try {
+            Connection conn = Connect.connect();
+
+            String sql = "DELETE FROM QUESTION WHERE QUESTION.Question=?;";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1,request.getParameter("questionToRemove"));
+
+            out.print("The question " + request.getParameter("questionToRemove") +
+                    " has been deleted");
+            pstmt.executeUpdate();
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            out.print(e.toString());
         }
     }
 }

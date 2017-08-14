@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
                 JsonArray UserArray = builder.build();
                 out.print(UserArray);
              } else {
-                out.print("error during connection");
+                out.print("Error during connection : username / password does not match");
             }
         } catch (Exception e) {
             out.print(e.toString());
