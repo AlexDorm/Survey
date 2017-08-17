@@ -21,7 +21,7 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Set response content type
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         // Base of the JSON array with users that will be returned
@@ -33,7 +33,7 @@ public class UserServlet extends HttpServlet {
 
             // Execute SQL query
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM PARTICIPANT";
+            String sql = "SELECT * FROM Participant";
             ResultSet rs = stmt.executeQuery(sql);
 
             // Extract data from result set
@@ -56,20 +56,20 @@ public class UserServlet extends HttpServlet {
             stmt.close();
             conn.close();
         } catch(Exception e) {
-            out.print("<p> " + e.toString() + "</p>");
+            out.print(e.toString());
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         try {
             Connection conn = Connect.connect();
 
-            String sql = "INSERT INTO PARTICIPANT (ParticipantID,Password,Name) VALUES(?,?,?);";
+            String sql = "INSERT INTO Participant (ParticipantID,Password,Name) VALUES(?,?,?);";
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, null); //null because of AUTO-INCREMENT in DB
@@ -88,7 +88,7 @@ public class UserServlet extends HttpServlet {
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         try {
@@ -96,7 +96,7 @@ public class UserServlet extends HttpServlet {
             PreparedStatement pstmt = null;
             if(Connect.md5Hash(request.getParameter("password"))
                     .equals(Connect.getPassword(request.getParameter("oldName")))){
-                String sql = "UPDATE PARTICIPANT SET Name=? WHERE PARTICIPANT.Name=?";
+                String sql = "UPDATE Participant SET Participant.Name=? WHERE Participant.Name=?";
 
                 pstmt = conn.prepareStatement(sql);
 
@@ -118,7 +118,7 @@ public class UserServlet extends HttpServlet {
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         try {
@@ -126,8 +126,8 @@ public class UserServlet extends HttpServlet {
             PreparedStatement pstmt = null;
             if(Connect.md5Hash(request.getParameter("password")).equals(
                     Connect.getPassword(request.getParameter("nameToRemove")))){
-                String sql = "DELETE FROM PARTICIPANT WHERE PARTICIPANT.Name=? AND " +
-                        "PARTICIPANT.Password = ?;";
+                String sql = "DELETE FROM Participant WHERE Participant.Name=? AND " +
+                        "Participant.Password = ?;";
                 pstmt = conn.prepareStatement(sql);
 
                 pstmt.setString(1,request.getParameter("nameToRemove"));

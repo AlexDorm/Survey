@@ -21,7 +21,7 @@ public class QuestionServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Set response content type
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         // Base of the JSON array with users that will be returned
@@ -33,7 +33,7 @@ public class QuestionServlet extends HttpServlet{
 
             // Execute SQL query
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM QUESTION";
+            String sql = "SELECT * FROM Question";
             ResultSet rs = stmt.executeQuery(sql);
 
 
@@ -55,20 +55,20 @@ public class QuestionServlet extends HttpServlet{
             stmt.close();
             conn.close();
         } catch(Exception e) {
-            out.print("<p> " + e.toString() + "</p>");
+            out.print(e.toString());
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         try {
             Connection conn = Connect.connect();
 
-            String sql = "INSERT INTO QUESTION (QuestionID,Question) VALUES(?,?);";
+            String sql = "INSERT INTO Question (QuestionID,Question) VALUES(?,?);";
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, null); //null because of AUTO-INCREMENT in DB
@@ -80,20 +80,20 @@ public class QuestionServlet extends HttpServlet{
             conn.close();
 
         } catch (Exception e){
-            out.print("<p> " + e.toString() + "</p>");
+            out.print(e.toString());
         }
     }
 
      protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         try {
             Connection conn = Connect.connect();
 
-            String sql = "UPDATE QUESTION SET Question=? WHERE QUESTION.Question=?";
+            String sql = "UPDATE Question SET Question.Question=? WHERE Question.Question=?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1,request.getParameter("newQuestion"));
@@ -112,13 +112,13 @@ public class QuestionServlet extends HttpServlet{
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         try {
             Connection conn = Connect.connect();
 
-            String sql = "DELETE FROM QUESTION WHERE QUESTION.Question=?;";
+            String sql = "DELETE FROM Question WHERE Question.Question=?;";
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1,request.getParameter("questionToRemove"));

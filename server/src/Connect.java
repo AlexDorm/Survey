@@ -47,7 +47,7 @@ class Connect {
     static String getPassword(String name) throws SQLException, ClassNotFoundException {
 
         Connection co = connect();
-        String sql = "SELECT PARTICIPANT.Password FROM PARTICIPANT WHERE PARTICIPANT.Name='"+name+"'";
+        String sql = "SELECT Participant.Password FROM Participant WHERE Participant.Name='"+name+"'";
         Statement stmt = co.createStatement();
 
         ResultSet rs = stmt.executeQuery(sql);
@@ -64,7 +64,7 @@ class Connect {
     static String getIDfromDB(String name) throws SQLException, ClassNotFoundException {
 
         Connection co = connect();
-        String sql = "SELECT PARTICIPANT.ParticipantID FROM PARTICIPANT WHERE PARTICIPANT.Name='"+name+"'";
+        String sql = "SELECT Participant.ParticipantID FROM Participant WHERE Participant.Name='"+name+"'";
         Statement stmt = co.createStatement();
 
         ResultSet rs = stmt.executeQuery(sql);

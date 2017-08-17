@@ -53,7 +53,13 @@ window.onload = function () {
         var params = "answer=" + document.querySelector("input[name='answer']:checked").value + "&userID=" + localStorage.id
                         + "&questionID=" + questionTab.questionID;
         httpPostAsynch("http://localhost:8080/web/API/Answer", params, submitted);
-    }
+    };
+
+    //post the answer as null to show that the user didn't want to answer but question has been asked
+    document.getElementById("skip").onclick = function () {
+        var params = "userID=" + localStorage.id + "&questionID=" + questionTab.questionID;
+        httpPostAsynch("http://localhost:8080/web/API/Answer", params, submitted);
+    };
 
     // disable the next button if !finished, else disable every button
     function checked(finished = false) {
@@ -69,6 +75,7 @@ window.onload = function () {
                 selectArray[i].disabled = true;
             }
             document.getElementById("next").disabled = true;
+            document.getElementById("skip").disabled = true;
             document.getElementById("answers").clickable = false;
         }
     }
